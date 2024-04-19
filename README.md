@@ -13,9 +13,9 @@ student-operations
 |
 |- docker-compose.yaml
 |
-|- studente_operations_backend
+|- school_management_backend
 |
-|- student-operations-frontend
+|- school-management-frontend
 ```
 
 The content of the docker compose must be:
@@ -30,7 +30,7 @@ services:
     volumes:
       - postgres:/var/lib/postgresql
     environment:
-      - 'POSTGRES_DB=student_operations'
+      - 'POSTGRES_DB=school_management'
       - 'POSTGRES_PASSWORD=1234'
     ports:
       - 5432:5432
