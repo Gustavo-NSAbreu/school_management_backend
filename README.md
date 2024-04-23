@@ -14,8 +14,6 @@ student-operations
 |- docker-compose.yaml
 |
 |- school_management_backend
-|
-|- school-management-frontend
 ```
 
 The content of the docker compose must be:
