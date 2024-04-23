@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.web_development_class.school_management_backend.Domain.DTO.EnrolledStudentDTO;
+import com.web_development_class.school_management_backend.Domain.DTO.StudentDTO;
 import com.web_development_class.school_management_backend.Domain.Entity.Course;
-import com.web_development_class.school_management_backend.Domain.Entity.Student;
 import com.web_development_class.school_management_backend.Service.CourseService;
 
 import jakarta.transaction.Transactional;
@@ -24,7 +25,7 @@ import jakarta.transaction.Transactional;
 
 @RestController
 @RequestMapping("/api/v1/courses")
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin(origins = "*")
 public class CourseController {
         
     @Autowired
@@ -43,8 +44,14 @@ public class CourseController {
     }
 
     @GetMapping("/{id}/students")
-    public ResponseEntity<List<Student>> findStudents(@PathVariable UUID id) {
-        List<Student> students = service.findStudents(id);
+    public ResponseEntity<List<EnrolledStudentDTO>> findEnrolledStudents(@PathVariable UUID id) {
+        List<EnrolledStudentDTO> students = service.findEnrolledStudents(id);
+        return ResponseEntity.ok().body(students);
+    }
+
+    @GetMapping("/{id}/students/not-enrolled")
+    public ResponseEntity<List<StudentDTO>> findNotEnrolledStudents(@PathVariable UUID id) {
+        List<StudentDTO> students = service.findNotEnrolledStudents(id);
         return ResponseEntity.ok().body(students);
     }
 
@@ -62,9 +69,9 @@ public class CourseController {
         return ResponseEntity.ok().body(course);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity<String> delete(@RequestBody UUID id) {
+    public ResponseEntity<String> delete(@PathVariable UUID id) {
         try {
             service.delete(id);
             return ResponseEntity.ok().body("Course deleted successfully!");

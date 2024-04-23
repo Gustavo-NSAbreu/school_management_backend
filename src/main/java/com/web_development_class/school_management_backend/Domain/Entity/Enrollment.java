@@ -18,22 +18,17 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class StudentCourse {
+public class Enrollment {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id")
     private UUID id;
     
-    @Column(name = "student_id", nullable = false)
-    private UUID student_id;
+    @Column(name = "student_id")
+    private UUID studentId;
     
     @Column(name = "course_id")
-    private UUID course_id;
-
-    public StudentCourse(UUID student_id, UUID course_id) {
-        this.student_id = student_id;
-        this.course_id = course_id;
-    }
+    private UUID courseId;
 }
 
 

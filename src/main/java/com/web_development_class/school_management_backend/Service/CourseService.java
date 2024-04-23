@@ -6,8 +6,9 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.web_development_class.school_management_backend.Domain.DTO.EnrolledStudentDTO;
+import com.web_development_class.school_management_backend.Domain.DTO.StudentDTO;
 import com.web_development_class.school_management_backend.Domain.Entity.Course;
-import com.web_development_class.school_management_backend.Domain.Entity.Student;
 import com.web_development_class.school_management_backend.Repository.CourseRepository;
 
 @Service
@@ -24,8 +25,8 @@ public class CourseService {
         return repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Course not found"));
     }
 
-    public Course create(Course student) {
-        return repository.save(student);
+    public Course create(Course course) {
+        return repository.save(course);
     }
 
     public Course update(Course updatedCourse) {
@@ -39,8 +40,12 @@ public class CourseService {
         repository.deleteById(id);
     }
 
-    public List<Student> findStudents(UUID id) {
-        return repository.findStudents(id).orElseThrow(() -> new IllegalArgumentException("Course not found"));
+    public List<EnrolledStudentDTO> findEnrolledStudents(UUID id) {
+        return repository.findEnrolledStudents(id).orElseThrow(() -> new IllegalArgumentException("Course not found"));
+    }
+
+    public List<StudentDTO> findNotEnrolledStudents(UUID id) {
+        return repository.findNotEnrolledStudents(id).orElseThrow(() -> new IllegalArgumentException("Course not found"));
     }
 
 }

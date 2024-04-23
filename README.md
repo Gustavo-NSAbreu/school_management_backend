@@ -46,17 +46,6 @@ services:
     networks:
       - school-management-network
 
-  school-management-frontend:
-    image: school-management-frontend
-    container_name: school-management-frontend
-    build: ./school-management-frontend
-    ports:
-      - 3000:3000
-    stdin_open: true
-    tty: true
-    networks:
-      - school-management-network
-
 networks:
   school-management-network:
     driver: bridge
@@ -76,7 +65,3 @@ After setting up the file and repositories, run:
 Run:
 
 `docker exec -it postgres psql -h localhost -p 5432 -d school_management -U postgres`
-
-## Access the interface
-
-Go to: `localhost:3000`

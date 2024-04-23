@@ -24,9 +24,9 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id")
     private UUID id;
-    @Column(name = "first_name", nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
-    @Column(name = "last_name", nullable = false)
+    @Column(name = "description", nullable = false)
     private String description;
 
     public void update(Course course) {

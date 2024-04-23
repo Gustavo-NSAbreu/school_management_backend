@@ -1,11 +1,14 @@
 package com.web_development_class.school_management_backend.Controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.web_development_class.school_management_backend.Domain.DTO.CourseDTO;
+import com.web_development_class.school_management_backend.Domain.DTO.EnrolledCourseDTO;
 import com.web_development_class.school_management_backend.Domain.DTO.UpdateStudentDTO;
 import com.web_development_class.school_management_backend.Domain.Entity.Student;
 import com.web_development_class.school_management_backend.Domain.Entity.StudentId;
@@ -15,7 +18,7 @@ import jakarta.transaction.Transactional;
 
 @RestController
 @RequestMapping("/api/v1/students")
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin(origins = "*")
 public class StudentController {
     
     @Autowired
@@ -24,6 +27,18 @@ public class StudentController {
     @GetMapping
     public ResponseEntity<List<Student>> findAll() {
         List<Student> students = service.findAll();
+        return ResponseEntity.ok().body(students);
+    }
+
+    @GetMapping("/{id}/students")
+    public ResponseEntity<List<EnrolledCourseDTO>> findEnrolledStudents(@PathVariable UUID id) {
+        List<EnrolledCourseDTO> students = service.findEnrolledCourses(id);
+        return ResponseEntity.ok().body(students);
+    }
+
+    @GetMapping("/{id}/students/not-enrolled")
+    public ResponseEntity<List<CourseDTO>> findNotEnrolledStudents(@PathVariable UUID id) {
+        List<CourseDTO> students = service.findNotEnrolledCourses(id);
         return ResponseEntity.ok().body(students);
     }
 

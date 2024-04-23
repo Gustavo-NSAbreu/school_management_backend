@@ -6,33 +6,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.web_development_class.school_management_backend.Domain.Entity.StudentCourse;
-import com.web_development_class.school_management_backend.Service.StudentCourseService;
+import com.web_development_class.school_management_backend.Domain.Entity.Enrollment;
+import com.web_development_class.school_management_backend.Service.EnrollmentService;
 
 import jakarta.transaction.Transactional;
 
 @RestController
 @RequestMapping("/api/v1/enrollments")
-@CrossOrigin("http://localhost:3000")
-public class StudentCourseController {
+@CrossOrigin(origins = "*")
+public class EnrollmentController {
 
     @Autowired
-    private StudentCourseService service;
+    private EnrollmentService service;
 
-    @PostMapping
-    public ResponseEntity<String> enroll(@RequestBody StudentCourse enrollment) {
-        service.enroll(enrollment);
-        return ResponseEntity.ok().body("Enrolled successfully!");
+    @PostMapping("/{sId}&{cId}")
+    public ResponseEntity<Enrollment> enroll(@PathVariable UUID sId, @PathVariable UUID cId) {
+        Enrollment enrollment = service.enroll(sId, cId);
+        return ResponseEntity.ok().body(enrollment);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity<String> unenroll(@RequestBody UUID id) {
+    public ResponseEntity<String> unenroll(@PathVariable UUID id) {
         try {
             service.unenroll(id);
             return ResponseEntity.ok().body("Unenrolled successfully!");

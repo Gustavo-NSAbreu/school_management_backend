@@ -1,10 +1,13 @@
 package com.web_development_class.school_management_backend.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.web_development_class.school_management_backend.Domain.DTO.CourseDTO;
+import com.web_development_class.school_management_backend.Domain.DTO.EnrolledCourseDTO;
 import com.web_development_class.school_management_backend.Domain.Entity.Student;
 import com.web_development_class.school_management_backend.Domain.Entity.StudentId;
 import com.web_development_class.school_management_backend.Repository.StudentRepository;
@@ -38,6 +41,14 @@ public class StudentService {
     public void delete(StudentId studentId) {
         repository.findById(studentId).orElseThrow(() -> new IllegalArgumentException("Student not found"));
         repository.deleteById(studentId);
+    }
+
+    public List<EnrolledCourseDTO> findEnrolledCourses(UUID studentId) {
+        return repository.findEnrolledCourses(studentId).orElseThrow(() -> new IllegalArgumentException("Student not found"));
+    }
+
+    public List<CourseDTO> findNotEnrolledCourses(UUID studentId) {
+        return repository.findNotEnrolledCourses(studentId).orElseThrow(() -> new IllegalArgumentException("Student not found"));
     }
 
 }
